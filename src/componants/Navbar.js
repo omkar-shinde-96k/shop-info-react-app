@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React  from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -7,14 +7,16 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
-import MenuItem from '@mui/material/MenuItem';
-import SearchIcon from '@mui/icons-material/Search'; 
+import Button from '@mui/material/Button'; 
+import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
+import { Outlet  , useNavigate } from "react-router-dom"; 
+import {
+  NavLink
+} from "react-router-dom";
 
 import { styled, alpha } from '@mui/material/styles';
 
-const pages = ['All Shops', 'Add Shop', 'Blog'];
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -59,22 +61,33 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Navbar = () => {
+  let navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null); 
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+
+  const [input, setInput] = React.useState(""); 
+
+  const ChangeHandler = (e) => {
+    let setinp = e.target.value.toLowerCase(); 
+    navigate(`${setinp}`);
+  };
+
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
-  }; 
+  };
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
-  }; 
+  };
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
 
   return (
+    <>
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -82,9 +95,10 @@ const Navbar = () => {
             variant="h6"
             noWrap
             component="div"
-            sx={{ mr: 2,fontWaight:"500px",color:"orange", display: { xs: 'none', md: 'flex' } }}
+            sx={{ mr: 2, color: "orange", display: { xs: 'none', md: 'flex' } }}
           >
-            <b>FIND-SHOPS</b>
+            <b>SHOPS.info</b>
+            
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -116,69 +130,50 @@ const Navbar = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  {/* <Typography textAlign="center">{page}</Typography> */} {page}
-                </MenuItem>
-              ))}
+              <div style={{padding:"0 20px"}}>
+              <NavLink className="link" style={{color:"black"}}  to="/">ALL Shops </NavLink>
+              <NavLink className="link" style={{color:"black"}}  to="/addshop">Add Shop </NavLink>
+              </div>
             </Menu>
           </Box>
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1,color:"orange",fontSize:"15px", display: { xs: 'flex', md: 'none' } }}
+            sx={{ flexGrow: 1, color: "orange", fontSize: "15px", display: { xs: 'flex', md: 'none' } }}
           >
-             ShopsIndia
+            SHOPS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))}
+
+            <Button
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+             <NavLink className="link" style={{color:"white"}}  to="/">ALL Shops </NavLink> &nbsp;&nbsp;&nbsp;&nbsp;
+              <NavLink className="link" style={{color:"white"}}  to="/addshop">Add Shop </NavLink>
+            </Button>
+
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
-            {/* <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu> */}
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ 'aria-label': 'search' }}
+                onChange={ChangeHandler} 
+              />
+            </Search>
+
           </Box>
         </Toolbar>
       </Container>
     </AppBar>
+     <Outlet />
+     </>
   );
 };
 export default Navbar;

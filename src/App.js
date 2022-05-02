@@ -3,7 +3,7 @@ import './App.scss';
 import Navbar  from './componants/Navbar';  
 import {ShopCard}  from './componants/ShopCard';  
 import {AllShops} from './pages/AllShops'
-// import { CreateCategory } from './pages/CreateCategory';
+import { AddShop } from './pages/AddShop';
 // import { AllPosts } from './pages/AllPosts';
 
 import {
@@ -12,24 +12,16 @@ import {
   Route, 
 } from "react-router-dom";
 
-
 function App() {
   return (
     <>
-      <BrowserRouter> 
-      <Navbar/>  
-      <br/> 
-        <Routes>
-          <Route path="/" element={<AllShops />}>
-            <Route path="/" element={<AllShops />}> 
-              {/* <Route path=":catId" index element={<AllPosts />} /> */}
-              <Route index element={<AllShops/>} />
-            </Route>
-
-            {/* <Route path="/createpost" element={<CreatePost />} />
-            <Route path="/addcategory" element={<CreateCategory />} />  */}
-            <Route path="*" element={<h1>page not found</h1>} /> 
-          </Route>  
+      <BrowserRouter>   
+        <Routes> 
+          <Route path="/" element={< Navbar />}> 
+            <Route path="/addshop" element={<AddShop />} /> 
+            <Route path="/:searchKey" element={<AllShops />} />
+            <Route index element={<AllShops />} />
+          </Route> 
         </Routes>
       </BrowserRouter> 
 

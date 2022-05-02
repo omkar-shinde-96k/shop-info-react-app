@@ -1,8 +1,7 @@
-let category = [{category: 'cricket'}];
+let category = [{ name: 'Grocery' }, { name: 'Butcher' }, { name: 'Baker' }, { name: 'Chemist' }];
 let id = 0;
 
-export const categoryReducer = (state = [], action) => {
-    console.log("action", action.type);
+export const categoryReducer = (state = [], action) => {  
     switch (action.type) {
         case "ADDCATEGORY": {
             console.log("add category", action.payload);

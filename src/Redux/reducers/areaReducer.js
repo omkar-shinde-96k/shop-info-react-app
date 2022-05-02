@@ -1,14 +1,12 @@
-let category = [{area: 'Pune'}];
+let category = [{name: 'Thane'},{name: 'Pune'},{name: 'Mumbai'},{name: 'Nashik'},{name: 'Nagpur'},{name: 'Ahmednagar'},{name: 'Solapur'}];
+
 let id = 0;
 
-export const areaReducer = (state = [], action) => {
-    console.log("action", action.type);
+export const areaReducer = (state = [], action) => { 
     switch (action.type) {
-        case "ADDCATEGORY": {
-            console.log("add category", action.payload);
+        case "ADDAREA": { 
             let add = { id, ...action.payload };
-            category.push(add);
-            console.log("One category added", category);
+            category.push(add); 
             id++;
             return category
         }
