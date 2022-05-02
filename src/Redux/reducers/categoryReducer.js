@@ -3,11 +3,9 @@ let id = 0;
 
 export const categoryReducer = (state = [], action) => {  
     switch (action.type) {
-        case "ADDCATEGORY": {
-            console.log("add category", action.payload);
+        case "ADDCATEGORY": { 
             let add = { id, ...action.payload };
-            category.push(add);
-            console.log("One category added", category);
+            category.push(add); 
             id++;
             return category
         }

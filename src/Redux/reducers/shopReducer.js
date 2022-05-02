@@ -14,14 +14,14 @@ export const shopReducer = (state = shops, action) => {
         case "ADDSHOP": {
             console.log("add post");
             let add = { id, ...action.payload }
-            state.push(add); 
+            state.push(add);
             id++;
             return state
         }
         case "DELETESHOP": {
             console.log("delete reducer", action.payload);
             state = state.filter((curr) => curr.id !== action.payload)
-        } 
+        }
         default: return state;
     }
 }
